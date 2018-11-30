@@ -1,7 +1,6 @@
 Slides
 02 missing
 consolidate preprocessing
-all titles!
 
 
 Notebooks
