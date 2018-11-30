@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Introduction</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Garamond);
+      @import url(https://fonts.googleapis.com/css?family=Muli:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+![:scale 40%](images/sklearn_logo.png)
+
+
+### Introduction to Machine learning with scikit-learn
+
+# Introduction
+
+Andreas C. Müller
+
+Columbia University, scikit-learn
+
+.smaller[https://github.com/amueller/ml-workshop-1-of-4]
+
+---
+
+# Other Resources
+
+.center[
+![:scale 25%](images/PDSH.png)&nbsp;&nbsp;&nbsp;
+![:scale 25%](images/imlp.png)&nbsp;&nbsp;&nbsp;
+![:scale 25%](images/esl.png)
+]
+Lecture: http://www.cs.columbia.edu/~amueller/comsw4995s18/schedule/
+
+
+Videos and more slides!
+
+???
+
+FIXME JAKE book border
+There are three books that I recommend looking into for this course. Definitely
+check out my book, Introduction to machine learning with Python. You can find
+the PDF on courseworks. My book should be a relatively easy read and it’s quite
+short. The second one is Applied predictive modelling by Max Kuhn, which goes a
+bit deeper. This is about the level I want to go to in this course. You can get
+it for free at springer link, I posted a link in courseworks. These two are
+really the essential ones. Finally, there's Elements of statistical learning,
+also known as ESL or the stanford book, by Hastie Tibshibani and Friedman is a
+classic for a more theoretical view. You can get it for free on the authors
+website.
+
+If you want to brush up on your Python skills, I also recommend the Python Data
+Science Handbook by my friend Jake Vanderplas.
+
+---
+
+class: center, middle
+
+# What and Why of Machine Learning
+
+???
+
+I first want to talk about what is machine learning, and why do we want it. As you’re
+in this course, you’re probably already somewhat convinced that it’s useful,
+but I briefly want to give my own perspective. In general, today will not be
+very meaty and be more a loose collections of ideas and directions. The next
+class we will go down to the metal much more.
+
+---
+
+class: center, middle
+
+# What is machine learning?
+
+???
+
+Machine learning is about extracting knowledge from data. It is closely related
+to statistics and optimization. What distinguishes machine learning is that it
+is very focused on prediction.
+
+We want to learn from a large dataset how to make decisions for future
+observations. You could say that the input to a machine learning program is
+the dataset, and the output is a program that can make decisions on future
+observations.
+
+Machine learning is really widely used now, and I want to give you some
+examples that most of you probably already interacted with today.
+
+---
+
+# Science!
+
+.center[
+![:scale 70%](images/exoplanet.png)
+]
+
+???
+
+That was some of the flashy, every day live applications. Something that might
+get you VC funding. There’s also a lot of machine learning applications in less
+visible, but equally important - or more important - applications in science.
+There is more and more personalized cancer treatment – via machine learning.
+More medical diagnosis, and more drug discovery are using machine learning.
+The higgs boson couldn’t have been found without machine learning, and the same
+is true for many earth like planets in other solar systems.
+Which is shown using an artists illustration here. In reality you would
+have a single pixel, containing the sun and the planet. You can find exoplanets
+by checking whether the star gets periodically slightly darker, in which case you found
+a planet. Of course with machine learning!
+Machine learning is an essential in many data driven sciences now!  So no matter
+where you want to go with data, you need machine learning.  But what does that
+mean?  Next, I want to give you a little taxonomy of machine learning methods.
+
+---
+class: center, middle
+
+# Types of Machine Learning
+
+???
+
+There are three main branches of machine learning.
+Who can name them?
+---
+# Types of Machine Learning
+.padding-top[
+- ## Supervised
+
+- ## Unsupervised
+
+- ## Reinforcement
+]
+???
+
+They called supervised learning, unsupervised learning and reinforcement learning.
+What are they?
+This course will heavily focus on supervised learning, but you should be aware
+the other types and their characteristics. We will do some unsupervised learning,
+but no reinforcement learning. Supervised learning is the most commonly used type in
+industry and research right now, though reinforcement learning becomes
+increasingly important.
+
+---
+
+class: center
+
+# Supervised Learning
+
+.larger[
+$$ (x_i, y_i) \propto p(x, y) \text{ i.i.d.}$$
+$$ x_i \in \mathbb{R}^p$$
+$$ y_i \in \mathbb{R}$$
+$$f(x_i) \approx y_i$$
+]
+
+???
+
+In supervised learning, the dataset we learn form is input-output pairs (x_i,
+y_i), where x_i is some n_dimensional input, or feature vector, and y_i is the
+desired output we want to learn.  Generally, we assume these samples are drawn
+from some unknown joint distribution p(x, y). In statistics, x_i might be
+called independent variables and y_i dependent variable.
+What does iid mean?
+We say they are drawn iid, which stands for independent identically
+distributed. In other words, the x_i, y_i pairs are independent and all come
+from the same distribution p. You can think of this as there being some
+process that goes from x_i to y_i, but that we don’t know. We write this as a
+probability distribution and not as a function since even if there is a real
+process creating y from x, this process might not be deterministic.  The goal
+is to learn a function f so that for new inputs x for which we don’t observe y,
+f(x) is close to y.  This approach is very similar to function approximation.
+The name supervised comes from the fact that during learning, a supervisor
+gives you the correct answers y_i.
+
+---
+
+# Examples of Supervised Learning
+
+???
+
+Here are some examples of supervised learning.
+Given an array of test results from a patient, does this patient have diabetes?
+The x_i would be the different test results, and y_i would be diabetes or no
+diabetes.  Given a piece of a satellite image, what is the terrain in this
+image? Here x_i would be the pixels of the image, and y_i would be the terrain
+types.
+
+This is often used to automate manual labor. For example, you might annotate
+part of a dataset manually, then learn a machine learning model from this
+annotations, and use the model to annotate the rest of your data.
+
+---
+
+# Unsupervised Learning
+.padding-top[
+$$ x_i \propto p(x) \text{ i.i.d.}$$
+Learn about $p$.
+]
+???
+
+In unsupervised machine learning, we are just given data points x_i, that are
+assumed to be drawn from an unknown distribution. Usually we want to learn
+something about these, such as whether they lie on a low-dimensional subspace,
+or whether the data clusters in several groups, or find ways to represent the
+distribution compactly.  The goal in unsupervised learning is often much less
+clear than in supervised learning, and there is no-one providing a “correct”
+answers and no supervisor.
+
+Common examples of unsupervised learning is discovering topics in news articles
+or on twitter, or grouping data into clusters for easier analysis.  Another one
+is outlier detection, where you ask “does this data look normal” which is
+important for fraud detection and security systems.
+
+---
+
+class: center, middle
+
+# Reinforcement Learning
+
+.left-column[
+![:scale 100%](images/alpha_go.png)
+]
+
+.right-column[
+![:scale 100%](images/nao.png)
+]
+
+???
+
+The third kind, reinforcement learning, has been in the news quite a bit in the
+last year. Has anyone heard of that? Alpha go beat the world champion in go.
+Reinforcement learning is about an agent learning to interact with an
+environment, with some ultimate goal. The environment could be a go board, and
+the goal to win the game. For self-driving cars, the the environment could be
+roads, sensed by cameras and laser sensors, and the goal would be to get you
+somewhere quickly and safely. Or, the environment could be a social media
+platform, and the goal could be to provide you such great content that you
+never remove your eyes from your phone again!
+
+---
+
+# Other kinds of learning
+
+- Semi-supervised
+- Active Learning
+- Forecasting
+- ...
+
+???
+
+There are other kinds of learning that are somewhere between the three kinds I
+just explained. Semi-supervised learning for example is a combination of
+supervised and unsupervised learning. Active learning is somewhere between
+reinforcement learning and supervised learning. There are also many kinds of
+supervised learning where the assumption that data points are independent is
+dropped, for example for time series analysis and forecasting.  However, if you
+get the three main concepts, the rest will be easy to understand.  Some people,
+including the local and famous Yann LeCun think that supervised learning is
+fundamentally limited. In particular it doesn’t seem to be how humans learn.
+So now you can buy these shirts on redbubble
+
+---
+
+# Classification and Regression
+
+.left-column[
+### Classification
+- target y discrete
+
+- Is this patient sick?
+]
+
+.right-column[
+### Regression
+- target y continuous
+- How long will it take for the patient to recover?
+]
+???
+So getting back to supervised learning, there are two basic kinds, called
+classification and regression.
+The difference is quite simple: if y is continuous, then it’s regression, and
+if y is discrete, it’s classification.
+
+While it's simple, let me give an example.
+If I want to predict whether a one of you will pass the class, it’s a
+classification problem. There are two possible answers, “yes” and “no”.  If I
+want to predict how many points you get on an exam, it’s a regression
+problem, there is a continuous, gradual output space.
+
+There are generalizations of this where we try to predict more than one
+variable, but we won’t go into that in this course. The main reason the distinction
+between classification and regression is important is because the way we
+measure how good a prediction is is very different for the two.
+It's not always entirely clear whether it's best to formulate a problem as classification
+or regression. If you think of predicting a 5-star rating, there's only 5 different possible
+outcomes, so you might think it's classification. But there is also an obvious ordering
+between the outcomes, which would make it a regression problem.
+Both formulations could work, and there are approaches that combine the two for
+this particular problem.
+
+---
+
+# Generalization
+
+.left-column[
+Not only <br />
+also for new data:
+]
+
+.right-column[$f(x_i) \approx y_i$,<br />
+$f(x) \approx y$
+]
+???
+For both regression and classification, it’s important to keep in mind the
+concept of generalization.
+Let’s say we have a regression task. We have features, that is data vectors x_i
+and targets y_i drawn from a joint distribution. We now want to learn a
+function f, such that f(x) is approximately y, not on this training data, but
+on new data drawn from this distribution. This is what’s called generalization,
+and this is a core distinction to function approximation. In principle we don’t
+care about how well we do on x_i, we only care how well we do on new samples
+from the distribution. We’ll go into much more detail about generalization in
+about a week, when we dive into supervised learning. 
+
+---
+
+# Relationship to Statistics
+
+.left-column[
+Statistics
+- model first
+- infence emphasis
+]
+.right-column[
+Machine learning
+- data first
+- prediction emphasis
+]
+
+???
+
+Before I’ll go into some general principles, I want to position machine
+learning in relation to statistics. I recently got chewed out by a colleague
+for doing that. My goal here is not to say one is better than the other.
+Actually, there’s really no clear boundary between statistics and machine learning, and
+anyone that tells you otherwise is lying. Two of the books I recommended for the
+course are actually statistics text books. But I can tell you how the tools
+that I’m talking about in this course will differ from what you’d learn in a
+typical stats course.
+
+Statistics is usually about inference, often phrased in terms of hypothesis
+testing. An example might be a yes-no-question, such as “are women less likely
+to enroll in a Data Science Program”, and you have a sample population, for
+example this classroom, and you can then try to make an inference about whether
+this statement is true. Often this includes making assumptions on how your
+sample relates to the general population, say this class vs all of DSI or
+Columbia vs all of the US. You might also have a specific model of how the process
+behind your question works.
+
+---
+
+# Relationship to Statistics
+
+.left-column[
+Statistics
+- model first
+- infence emphasis
+]
+.right-column[
+Machine learning
+- data first
+- prediction emphasis
+]
+
+???
+
+On the other hand, machine learning is about prediction and generalization. We
+want to learn from past data to predict outcomes on future, unseen data.
+
+We usually want to make statements about individual data points, and we want to
+build a model that will work on new data that fulfills our assumptions,
+independent of the population we samples. Often we don’t have or need a model
+of the process, but we rely on the assumption that our training data is
+generated from the same process as any future data will be.
+
+There are statisticians that do predictions and there are machine learning
+scientists that do inference, but I find this distinction helpful.
+
+Again I’m not saying one or the other is better, I’m just saying that you should
+know what kind of problem you are trying to solve, and what the right tool for
+the problem is. And then you can call it machine learning or statistics or
+probabilistic inference or data science. The tools you learn in this
+class will usually not help you to make yes/no inferences, and they
+will only give you a limited insight into the data generating process.
+
+---
+
+class: middle
+
+# Goal considerations
+
+???
+
+One of the most important parts of machine learning is defining the goal, and
+defining a way to measure that goal. In this way, Kaggle is a really bad way to
+prepare you for machine learning in the real world, because they already did
+that work for you.  In the real world, people don’t tell you whether you should
+use unsupervised learning, supervised learning, classification or regression,
+and what’s the right way to cast something as a machine learning task – or
+whether to cast it as machine learning at all.
+
+---
+
+class: middle, center
+
+# Sidebar: Ethical Considerations
+
+![:scale 30%](images/propublica_compas.png)<br/>
+.compact[https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing]
+
+???
+
+There is another area where explainability and transparency matter, and that is
+when people’s lives are at stake.
+One aspect of machine learning that only recently is getting some more attention is
+ethics. There was a recent article in propublica about racial bias in
+risk-assessment used in the criminal justice system. Spoiler alert: it’s bad. I
+recommend reading the article, it’s quite interesting. This is a black-box
+machine learning system created by some company. If they had to provide
+explanations, or a more transparent system, the situation would likely be
+better. But this is not the only place where ethics plays a role in machine
+learning. There will be a more focused course on ethics in the DSI next semester,
+and I really recommend looking into it.
+
+---
+---
+
+class: center
+
+# scikit-learn documentation
+![:scale 60%](images/sklearn-docs.png)
+
+---
+class: center
+
+# Representing Data
+
+![:scale 100%](images/matrix-representation.png)
+---
+class: center
+
+# Training and Test Data
+
+![:scale 80%](images/train-test-split.png)
+---
+class: center, middle
+
+# Notebook: Data Loading 
+
+---
+class: center
+
+# Supervised ML Workflow
+
+![:scale 80%](images/supervised-ml-workflow.png)
+---
+class: center
+
+# Supervised ML Workflow
+
+![:scale 100%](images/supervised-ml-api.png)
+
+---
+class: center
+
+# Nearest Neighbors
+
+![:scale 40%](images/knn_boundary_test_points.png)
+$$f(x) = y_i, i = \text{argmin}_j || x_j - x||$$
+
+???
+Let’s say we have this two-class classification dataset here, with
+two features, one on the x axis and one on the y axis.
+And we have three new points as marked by the stars here.
+If I make a prediction using a one nearest neighbor classifier, what
+will it predict?
+It will predict the label of the closest data point in the training set.
+That is basically the simplest machine learning algorithm I can come
+up with.
+
+Here’s the formula:
+the prediction for a new x is the y_i so that x_i is the closest point
+in the training set.
+Ok, so now how do we find out whether this model is any good?
+---
+class: center
+
+# Nearest Neighbors
+
+![:scale 40%](images/knn_boundary_k1.png)
+
+$$f(x) = y_i, i = \text{argmin}_j || x_j - x||$$
+
+???
+Let’s say we have this two-class classification dataset here, with
+two features, one on the x axis and one on the y axis.
+And we have three new points as marked by the stars here.
+If I make a prediction using a one nearest neighbor classifier, what
+will it predict?
+It will predict the label of the closest data point in the training set.
+That is basically the simplest machine learning algorithm you can think of.
+
+Here’s the formula:
+the prediction for a new x is the y_i so that x_i is the closest point
+in the training set.
+Ok, so now how do we find out whether this model and these predictions are any good?
+---
+class: center
+
+![:scale 60%](images/train_test_set_2d_classification.png)
+
+???
+The simplest way is to split the data into a training and a test set.
+So we take some part of the data set,  let’s say 75% and the
+corresponding output, and train the model, and then apply the model on
+the remaining 25% to compute the accuracy. This test-set accuracy
+will provide an unbiased estimate of future performance.
+So if our i.i.d. assumption is correct, and we get a 90% success
+rate on the test data, we expect about a 90% success rate on any future
+data, for which we don't have labels.
+
+Let's dive into how to build and evaluate this model with scikit-learn.
+---
+# KNN with scikit-learn
+
+```python
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(X_train, y_train)
+print("accuracy: {:.2f}".format(knn.score(X_test, y_test)))
+y_pred = knn.predict(X_test)
+```
+accuracy: 0.77
+
+???
+We import train_test_split form model selection, which does a
+random split into 75%/25%.
+We provide it with the data X, which are our two features, and the
+labels y.
+
+As you might already know, all the models in scikit-learn are implemented
+in python classes, with a single object used to build and store the model.
+
+We start by importing our model, the KneighborsClassifier, and instantiate
+it with n_neighbors=1. Instantiating the object is when we set any hyper parameter,
+such as here saying that we only want to look at the neirest neighbor.
+
+Then we can call the fit method to build the model, here knn.fit(X_train,
+y_train)
+All models in scikit-learn have a fit-method, and all the supervised ones take
+the data X and the outcomes y. The fit method builds the model and stores any
+estimated quantities in the model object, here knn.  In the case of nearest
+neighbors, the `fit` methods simply remembers the whole training set.
+
+Then, we can use knn.score to make predictions on the test data, and
+compare them against the true labels y_test.
+
+For classification models, the score method will always compute
+accuracy. 
+
+Just for illustration purposes, I also call the predict method here.
+The predict method is what's used to make predictions on any dataset.
+If we use the score method, it calls predict internally and then
+compares the outcome to the ground truth that's provided.
+
+Who here has not seen this before?
+---
+class: center
+
+# More neighbors
+
+![:scale 50%](images/knn_boundary_k1.png)
+
+???
+So this was the predictions as made by one-nearest neighbor.
+But we can also consider more neighbors, for example three. Here is the
+three nearest neighbors for each of the points and the corresponding
+labels.
+We can then make a prediction by considering the majority among these
+three neighbors.
+And as you can see, in this case all the points changed their labels! (I
+was actually quite surprised when I saw that, I just picked some points
+at random).
+Clearly the number of neighbors that we consider matters a lot. But what
+is the right number?
+The is a problem you’ll encounter a lot in machine learning, the
+problem of tuning parameters of the model, also called hyper-parameters,
+which can not be learned directly from the data.
+---
+class: center
+
+# More neighbors
+
+![:scale 50%](images/knn_boundary_k3.png)
+
+???
+So this was the predictions as made by one-nearest neighbor.
+But we can also consider more neighbors, for example three. Here is the
+three nearest neighbors for each of the points and the corresponding
+labels.
+We can then make a prediction by considering the majority among these
+three neighbors.
+And as you can see, in this case all the points changed their labels! (I
+was actually quite surprised when I saw that, I just picked some points
+at random).
+Clearly the number of neighbors that we consider matters a lot. But what
+is the right number?
+The is a problem you’ll encounter a lot in machine learning, the
+problem of tuning parameters of the model, also called hyper-parameters,
+which can not be learned directly from the data.
+---
+class: center, some-space
+
+# Influence of n_neighbors
+
+![:scale 45%](images/knn_boundary_varying_k.png)
+
+???
+Here’s an overview of how the classification changes if we consider
+different numbers of neighbors.
+You can see as red and blue circles the training data. And the background
+is colored according to which class a datapoint would be assigned to
+for each location.
+For one neighbor, you can see that each point in the training set has
+a little area around it that would be classified according to it’s
+label. This means all the training points would be classified correctly,
+but it leads to a very complex shape of the decision boundary.
+If we increase the number of neighbors, the boundary between red and
+blue simplifies, and with 40 neighbors we mostly end up with a line.
+This also means that now many of the training data points would be
+labeled incorrectly.
+---
+class: center, spacious
+
+# Model complexity
+
+![:scale 75%](images/knn_model_complexity.png)
+
+???
+We can look at this in more detail by comparing training and test set
+scores for the different numbers of neighbors.
+Here, I did a random 75%/25% split again. This is a very noisy plot as
+the dataset is very small and I only did a random split, but you can
+see a trend here.
+You can see that for a single neighbor, the training score is 1 so perfect
+accuracy, but the test score is only 70%.  If we increase the number of
+neighbors we consider, the training score goes down, but the test score
+goes up, with an optimum at 19 and 21, but then both go down again.
+
+This is a very typical behavior, that I sketched in a schematic for you.
+---
+class: center, middle
+
+# Notebook: Supervised Learning
+---
+class: center, spacious
+# Overfitting and Underfitting
+
+![:scale 80%](images/overfitting_underfitting_cartoon_train.png)
+
+???
+here is a cartoon version of how this chart looks in general, though
+it's horizontally flipped to the one with saw for knn.
+This chart has accuracy on the y axis, and the abstract concept of model
+complexity on the x axis.
+If we make our machine learning models more complex, we will get better
+training set accuracy, as the model will be able to capture more of the
+variations in the data.
+---
+class: center, spacious
+# Overfitting and Underfitting
+
+![:scale 80%](images/overfitting_underfitting_cartoon_generalization.png)
+
+???
+But if we look at the generalization performance, we get a different
+story. If the model complexity is too low, the model will not be able
+to capture the main trends, and a more complex model means better
+generalization.
+However, if we make the model too complex, generalization performance
+drops again, because we basically learn to memorize the dataset.
+
+---
+class: center, spacious
+# Overfitting and Underfitting
+
+![:scale 80%](images/overfitting_underfitting_cartoon_full.png)
+
+???
+If we use too simple a model, this is often called underfitting, while
+if we use to complex a model, this is called overfitting. And somewhere
+in the middle is a sweet spot.
+Most models have some way to tune model complexity, and we’ll see many
+of them in the next couple of weeks.
+So going back to nearest neighbors, what parameters correspond to high
+model complexity and what to low model complexity? high n_neighbors =
+low complexity!
+
+
+---
+
+# Threefold split
+.padding-top[
+![:scale 100%](images/threefold_split.png)
+]
+???
+The simplest way to combat this overfitting to the test set is by using
+a three-fold split of the data, into a training, a validation and a
+test set as we just did.
+We use the training set for model building, the validation set for
+parameter selection and the test set for a final evaluation of the model.
+So how many models should you try out on the test set? Only one! Ideally
+use use the test-set exactly once, otherwise you make a multiple
+hypothesis testing error!
+
+What are downsides of this? We lose a lot of data for evaluation, and
+the results depend on the particular sampling.
+--
+<br />
+
+pro: fast, simple
+
+con: high variance, bad use of data
+
+
+---
+# Implementing threefold split
+
+.smaller[
+```python
+X_trainval, X_test, y_trainval, y_test = train_test_split(X, y)
+X_train, X_val, y_train, y_val = train_test_split(X_trainval, y_trainval)
+
+val_scores = []
+neighbors = np.arange(1, 15, 2)
+for i in neighbors:
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(X_train, y_train)
+    val_scores.append(knn.score(X_val, y_val))
+print("best validation score: {:.3f}".format(np.max(val_scores)))
+best_n_neighbors = neighbors[np.argmax(val_scores)]
+print("best n_neighbors:", best_n_neighbors)
+
+knn = KNeighborsClassifier(n_neighbors=best_n_neighbors)
+knn.fit(X_trainval, y_trainval)
+print("test-set score: {:.3f}".format(knn.score(X_test, y_test)))
+```
+
+```
+best validation score: 0.991
+best n_neighbors: 11
+test-set score: 0.951
+```
+]
+???
+FIXME complex code
+Here is an implementation of the three-fold split for selecting the
+number of neighbors.
+For each number of neighbors that we want to try, we build a model on
+the training set, and evaluate it on the validation set.
+We then pick the best validation set score, here that’s 97.2%, achieved
+when using three neighbors.
+We then retrain the model with this parameter, and evaluate on the test set.
+The retraining step is somewhat optional. We could also just use the best
+model. But retraining allows us to make better use of all the data.
+
+Still, depending on the test-set size we might be using only 70% or 80%
+of the data, and our results depend on how exactly we split the datasets.
+So how can we make this more robust?
+---
+# Cross-validation
+.padding-top[
+![:scale 100%](images/kfold_cv.png)]
+???
+The answer is of course cross-validation. In cross-validation, you split
+your data into multiple folds, usually 5 or 10, and built multiple models.
+You start by using fold1 as the test data, and the remaining ones as the
+training data. You build your model on the training data, and evaluate
+it on the test fold.
+For each of the splits of the data, you get a model evaluation and a
+score. In the end, you can aggregate the scores, for example by taking
+the mean.
+What are the pros and cons of this?
+Each data point is in the test-set exactly once!
+Takes 5 or 10 times longer!
+Better data use (larger training sets).
+Does that solve all problems? No, it replaces only one of the splits,
+usually the inner one!
+--
+<br \>
+
+pro: more stable, more data
+
+con: slower
+
+???
+
+---
+
+class: center, some-space
+# Cross-validation + test set
+
+![:scale 70%](images/grid_search_cross_validation.png)
+
+???
+Here is how the workflow looks like when we are using five-fold
+cross-validation together with a test-set split for adjusting parameters.
+We start out by splitting of the test data, and then we perform
+cross-validation on the training set.
+Once we found the right setting of the parameters, we retrain on the
+whole training set and evaluate on the test set.
+---
+# Grid-Search with Cross-Validation
+
+.smaller[
+```python
+from sklearn.model_selection import cross_val_score
+
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+cross_val_scores = []
+
+for i in neighbors:
+    knn = KNeighborsClassifier(n_neighbors=i)
+    scores = cross_val_score(knn, X_train, y_train, cv=10)
+    cross_val_scores.append(np.mean(scores))
+    
+print("best cross-validation score: {:.3f}".format(np.max(cross_val_scores)))
+best_n_neighbors = neighbors[np.argmax(cross_val_scores)]
+print("best n_neighbors:", best_n_neighbors)
+
+knn = KNeighborsClassifier(n_neighbors=best_n_neighbors)
+knn.fit(X_train, y_train)
+print("test-set score: {:.3f}".format(knn.score(X_test, y_test)))
+```
+
+```
+best cross-validation score: 0.967
+best n_neighbors: 9
+test-set score: 0.965
+```
+]
+
+???
+Here is an implementation of this  for k nearest neighbors.
+
+We split the data, then we iterate over all parameters and for each of
+them we do cross-validation.
+
+We had seven different values of n_neighbors, and we are running 10 fold
+cross-validation. How many models to we train in total?
+10 * 7 + 1 = 71 (the one is the final model)
+---
+class: center, middle
+![:scale 80%](images/gridsearch_workflow.png)
+
+???
+Here is a conceptual overview of this way of tuning parameters, we start
+of with the dataset and a candidate set of parameters we want to try,
+labeled parameter grid, for example the number of neighbors.
+
+We split the dataset in to training and test set. We use cross-validation
+and the parameter grid to find the best parameters.
+We use the best parameters and the training set to build a model with
+the best parameters,
+and finally evaluate it on the test set.
+
+---
+class: center, middle
+# Cross-Validation Strategies
+
+???
+So I mentioned k-fold cross validation, where k is usually 5 or ten,
+but there are many other strategies.
+
+One of the most commonly ones is stratified k-fold cross-validation.
+---
+# StratifiedKFold
+
+![:scale 100%](images/stratified_cv.png)
+
+Stratified:
+Ensure relative class frequencies in each fold reflect relative class
+frequencies on the whole dataset.
+
+???
+The idea behind stratified k-fold cross-validation is that you want the
+test set to be as representative of the dataset as possible.
+StratifiedKFold preserves the class frequencies in each fold to be the
+same as of the overall dataset.
+Here is and example of a dataset with three classes that are ordered. If
+you apply standard three-fold to this, the first third of the data would
+be in the first fold, the second in the second fold and the third in
+the third fold. Because this data is sorted, that would be particularly
+bad. If you use stratified cross-validation it would make sure that each
+fold has exactly 1/3 of the data from each class.
+
+This is also helpful if your data is very imbalanced. If some of the
+classes are very rare, it could otherwise happen that a class is not
+present at all in a particular fold.
+---
+# Defaults in scikit-learn
+
+- Three-fold is default number of folds
+- For classification cross-validation is stratified
+- train_test_split has stratify option:
+train_test_split(X, y, stratify=y)
+
+- No shuffle by default!
+
+???
+Before we go to the other strategies, I wanted to point out the default
+behavior in scikit-learn.
+By default, all cross-validation strategies are three-fold.
+If you do cross-validation for classification, it will be stratified
+by default.
+Because of how the interface is done, that’s not true for
+train_test_split and if you want a stratified train_test_split, which
+is always a good idea, you should use stratify=y
+Another thing that’s important to keep in mind is that by default
+scikit-learn doesn’t shuffle! So if you run cross-validation twice
+with the default parameters, it will yield exactly the same results.
+---
+class: spacious
+# Repeated KFold and LeaveOneOut
+
+- LeaveOneOut : KFold(n_folds=n_samples)<br />
+High variance, takes a long time
+
+- Better: RepeatedKFold.<br />
+Apply KFold or StratifiedKFold multiple times with shuffled data. Reduces
+variance!
+
+???
+If you want even better estimates of the generalization performance,
+you could try to increase the number of folds, with the extreme
+of creating one fold per sample. That’s called “LeaveOneOut
+cross-validation”. However, because the test-set is so small every time,
+and the training sets all have very large overlap, this method has very
+high variance.
+A better way to get a robust estimate is to run 5-fold or 10-fold
+cross-validation multiple times, while shuffling the dataset.
+---
+# GroupKFold
+
+.padding-top[
+![:scale 100%](images/group_kfold.png)]
+
+???
+A somewhat more complicated approach is group k-fold.
+This is actually for data that doesn’t fulfill our IID assumption and
+has correlations between samples.
+The idea is that there are several groups in the data that each contain
+highly correlated samples.
+You could think about patient data where you have multiple samples for
+each patient, then the groups would be which patient a measurement was
+taken from.
+If you want to know how well your model generalizes to new patients,
+you need to ensure that the measurements from each patient are either
+all in the training set, or all in the test set.
+And that’s what GroupKFold does.
+In this example, there are four groups, and we want three folds. The
+data is divided such that each group is contained in exactly one fold.
+There are several other cross-validation methods in scikit-learn that
+use these groups.
+
+---
+# TimeSeriesSplit
+.padding-top[
+![:scale 100%](images/time_series_cv.png)]
+
+???
+Another common case of data that’s not independent is time
+series. Usually todays stock price is correlated with yesterdays and
+tomorrows. If you randomly split time series, this makes predictions
+deceivingly simple. In applications, you usually have data up to some
+point, and then try to make predictions for the future, in other words,
+you’re trying to make a forecast.
+The TimeSeriesSplit in scikit-learn simulates that, by taking increasing
+chunks of data from the past and making predictions on the next
+chunk. This is quite different from the other was to do cross-validation,
+in that the training sets are all overlapping, but it’s more appropriate
+for time-series.
+---
+# Using Cross-Validation Generators
+
+.smaller[
+```python
+from sklearn.model_selection import KFold, StratifiedKFold, ShuffleSplit
+kfold = KFold(n_splits=5)
+skfold = StratifiedKFold(n_splits=5, shuffle=True)
+ss = ShuffleSplit(n_splits=20, train_size=.4, test_size=.3)
+
+print("KFold:")
+print(cross_val_score(KNeighborsClassifier(), X, y, cv=kfold))
+
+print("StratifiedKFold:")
+print(cross_val_score(KNeighborsClassifier(), X, y, cv=skfold))
+
+print("ShuffleSplit:")
+print(cross_val_score(KNeighborsClassifier(), X, y, cv=ss))
+```
+
+```
+KFold:
+[ 0.93  0.96  0.96  0.98  0.96]
+StratifiedKFold:
+[ 0.97  0.95  0.98  0.96  0.96]
+ShuffleSplit:
+[ 0.93  0.96  0.95  0.98  0.95  0.98  0.97  0.95  0.96  0.96  0.99  0.96
+  0.96  0.96  0.98  0.96  0.95  0.95  0.96  0.96]
+```
+]
+???
+FIXME: repeated kfold
+Ok, so how do we use these cross-validation generators? We can simply
+pass the object to the cv parameter of the cross_val_score function,
+instead of passing a number. Then that generator will be used.
+Here are some examples for k-neighbors classifier.
+We instantiate a Kfold object with the number of splits equal to 5,
+and then pass it to cross_val_score.
+We can do the same with StratifiedKFold, and we can also shuffle if we
+like, or we can use Shuffle split.
+
+---
+class: center, middle
+![:scale 80%](images/gridsearch_workflow.png)
+
+???
+Let’s come back to the general workflow for adjusting hyper-parameters,
+though.
+So we start with hyper parameters we want to adjust and our dataset,
+we split it into training and test set, find the best parameters using
+cross-validation, retrain the model and then do a final evaluation on
+the test set.
+Because this is such a common pattern, there is a helper class for this
+in scikit-learn, called GridSearch CV, which does most of these steps
+for you.
+---
+# GridSearchCV
+.smaller[
+```python
+from sklearn.model_selection import GridSearchCV
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y)
+
+
+param_grid = {'n_neighbors':  np.arange(1, 15, 2)}
+
+grid = GridSearchCV(KNeighborsClassifier(), param_grid=param_grid, cv=10)
+grid.fit(X_train, y_train)
+
+print("best mean cross-validation score: {:.3f}".format(grid.best_score_))
+print("best parameters:", grid.best_params_)
+
+print("test-set score: {:.3f}".format(grid.score(X_test, y_test)))
+```
+
+```
+best mean cross-validation score: 0.967
+best parameters: {'n_neighbors': 9}
+test-set score: 0.993
+```
+]
+???
+Here is an example.
+We still need to split our data into training and test set.
+We declare the parameters we want to search over as a dictionary. In
+this example the parameter is just n_neighbors and the values we want
+to try out are a range. The keys of the dictionary are the parameter
+names and the values are the parameter settings we want to try. If you
+specify multiple parameters, all possible combinations are tried. This
+is where the name grid-search comes from - it’s an exhaustive search
+over all possible parameter combinations that you specify.
+
+GridSearchCV is a class, and it behaves just like any other model in
+scikit-learn, with a fit, predict and score method.
+It’s what we call a meta-estimator, since you give it one estimator,
+here the KneighborsClassifier, and from that GridSearchCV constructs a
+new estimator that does the parameter search for you.
+You also specify the parameters you want to search, and the
+cross-validation strategy.
+Then GridSearchCV does all the other things we talked about, it does the
+cross-validation and parameter selection, and retrains a model with the
+best parameter settings that were found.
+We can check out the best cross-validation score and the best parameter
+setting with the best_score_ and best_params_ attributes.
+And finally we can compute the accuracy on the test set, simply but
+using the score method! That will use the retrained model under the hood.
+
+---
+
+# GridSearchCV Results
+.smallest[
+```python
+import pandas as pd
+results = pd.DataFrame(grid.cv_results_)
+results.columns
+```
+```
+Index(['mean_fit_time', 'mean_score_time', 'mean_test_score',
+       'mean_train_score', 'param_n_neighbors', 'params', 'rank_test_score',
+       'split0_test_score', 'split0_train_score', 'split1_test_score',
+       'split1_train_score', 'split2_test_score', 'split2_train_score',
+       'split3_test_score', 'split3_train_score', 'split4_test_score',
+       'split4_train_score', 'split5_test_score', 'split5_train_score',
+       'split6_test_score', 'split6_train_score', 'split7_test_score',
+       'split7_train_score', 'split8_test_score', 'split8_train_score',
+       'split9_test_score', 'split9_train_score', 'std_fit_time',
+       'std_score_time', 'std_test_score', 'std_train_score'],
+      dtype='object')
+```
+
+```python
+results.params
+```
+```
+0     {'n_neighbors': 1}
+1     {'n_neighbors': 3}
+2     {'n_neighbors': 5}
+3     {'n_neighbors': 7}
+4     {'n_neighbors': 9}
+5    {'n_neighbors': 11}
+6    {'n_neighbors': 13}
+Name: params, dtype: object
+```
+]
+
+???
+GridSearchCV also computes a lot of interesting statistics for you, which
+are stored in the cv_results_ attribute. That attribute is a dictionary,
+but it’s easiest to convert it to a pandas dataframe to look at it.
+Here you can see the columns. Theres mean fit time, mean score time,
+mean test scores, mean training scores, standard deviations and scores
+for each individual split of the data.
+And there is one row for each setting of the parameters we tried out.
+---
+class: center
+# n_neighbors Search Results
+
+![:scale 70%](images/grid_search_n_neighbors.png)
+???
+We can use this for example to plot the results of cross-validation over
+the different parameters.
+Here are the mean training score and mean test score together with one
+standard deviation.
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <script>
+    // Config Remark
+    remark.macros['scale'] = function (percentage) {
+        var url = this;
+        return '<img src="' + url + '" style="width: ' + percentage + '" />';
+    };
+    config_remark = {
+        highlightStyle: 'github',
+        highlightSpans: true,
+        highlightLines: true,
+        ratio: "16:9"
+    };
+      var slideshow = remark.create(config_remark);
+
+    // Configure MathJax
+    MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] /* removed 'code' entry*/
+    }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script>
+  </body>
+</html>
