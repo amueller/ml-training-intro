@@ -33,29 +33,6 @@ Columbia University, scikit-learn
 
 class: center
 
-# scikit-learn documentation
-![:scale 60%](images/sklearn-docs.png)
-
----
-class: center
-
-# Representing Data
-
-![:scale 100%](images/matrix-representation.png)
----
-class: center
-
-# Training and Test Data
-
-![:scale 80%](images/train-test-split.png)
----
-class: center, middle
-
-# Notebook: Data Loading 
-
----
-class: center
-
 # Supervised ML Workflow
 
 ![:scale 80%](images/supervised-ml-workflow.png)
@@ -257,6 +234,50 @@ neighbors we consider, the training score goes down, but the test score
 goes up, with an optimum at 19 and 21, but then both go down again.
 
 This is a very typical behavior, that I sketched in a schematic for you.
+---
+class: center, spacious
+# Overfitting and Underfitting
+
+![:scale 80%](images/overfitting_underfitting_cartoon_train.png)
+
+???
+here is a cartoon version of how this chart looks in general, though
+it's horizontally flipped to the one with saw for knn.
+This chart has accuracy on the y axis, and the abstract concept of model
+complexity on the x axis.
+If we make our machine learning models more complex, we will get better
+training set accuracy, as the model will be able to capture more of the
+variations in the data.
+---
+class: center, spacious
+# Overfitting and Underfitting
+
+![:scale 80%](images/overfitting_underfitting_cartoon_generalization.png)
+
+???
+But if we look at the generalization performance, we get a different
+story. If the model complexity is too low, the model will not be able
+to capture the main trends, and a more complex model means better
+generalization.
+However, if we make the model too complex, generalization performance
+drops again, because we basically learn to memorize the dataset.
+
+---
+class: center, spacious
+# Overfitting and Underfitting
+
+![:scale 80%](images/overfitting_underfitting_cartoon_full.png)
+
+???
+If we use too simple a model, this is often called underfitting, while
+if we use to complex a model, this is called overfitting. And somewhere
+in the middle is a sweet spot.
+Most models have some way to tune model complexity, and we’ll see many
+of them in the next couple of weeks.
+So going back to nearest neighbors, what parameters correspond to high
+model complexity and what to low model complexity? high n_neighbors =
+low complexity!
+
 ---
 class: center, middle
 
