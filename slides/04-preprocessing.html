@@ -695,6 +695,93 @@ N/A
 
 ---
 class: center, middle
+# Dealing with missing values
+
+---
+class: spacious
+
+# Dealing with missing values
+
+- Missing values can be encoded in many ways
+- Numpy has no standard format for it (often np.NaN) - pandas does
+- Sometimes: 999, ???, ?, np.inf, “N/A”, “Unknown“ …
+- Not discussing “missing output” - that’s semi-supervised learning.
+- Often missingness is informative!
+
+???
+
+- Add feature that encodes that data was missing!
+---
+
+.center[
+![:scale 80%](images/missing_values_img_1.png)
+]
+
+???
+- Problem : Prediction not for all samples !
+- Accuracy might be biased
+
+
+---
+
+.center[
+![:scale 100%](images/missing_values_img_2.png)
+]
+
+???
+
+---
+class: spacious
+
+# Imputation Methods
+
+- Mean / Median
+- kNN
+- Regression models
+- Probabilistic models
+
+???
+
+---
+
+# Mean and Median
+
+.center[
+![:scale 100%](images/missing_values_img_4.png)
+]
+
+???
+
+---
+
+.center[
+![:scale 100%](images/missing_values_img_5.png)
+]
+
+???
+
+
+---
+
+
+class: spacious
+
+# KNN Imputation
+
+- Find k nearest neighbors that have non-missing values.
+- Fill in all missing values using the average of the
+neighbors.
+- PR in scikit-learn: https://github.com/scikit-learn/scikit-learn/pull/9212
+
+???
+
+---
+
+.center[
+![:scale 70%](images/missing_values_img_9.png)
+]
+---
+class: center, middle
 
 # Notebook: Preprocessing
 
