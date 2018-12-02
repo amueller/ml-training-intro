@@ -12,6 +12,20 @@ Instructor
 This repository will contain the teaching material and other info associated
 with the "Introduction to Machine Learning" course.
 
+Content
+-------
+
+- [Introduction to ML](https://amueller.github.io/ml-training-intro/slides/00-introduction.html)
+- [Supervised Learning](https://amueller.github.io/ml-training-intro/slides/01-supervised-learning.html)
+- [Unsupervised Learning](https://amueller.github.io/ml-training-intro/slides/02-unsupervised-learning.html)
+- [Cross-validation and Grid-Search](https://amueller.github.io/ml-training-intro/slides/03-cross-validation-grid-search.html)
+- [Preprocessing](https://amueller.github.io/ml-training-intro/slides/04-preprocessing.html)
+- [Linear Models for Regression](https://amueller.github.io/ml-training-intro/slides/05-linear-models-regression.html)
+- [Linear Models for Classification](https://amueller.github.io/ml-training-intro/slides/06-linear-models-classification.html)
+- [Trees and Forests](https://amueller.github.io/ml-training-intro/slides/07-trees-forests.html)
+- [Gradient Boosted Trees](https://amueller.github.io/ml-training-intro/slides/08-gradient-boosting.html)
+
+
 
 Obtaining the Tutorial Material
 --------------------------------
