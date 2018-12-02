@@ -274,8 +274,8 @@ class:spacious
 - Gradient boosting often best performance with careful tuning
 
     </textarea>
-    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="remark-latest.min.js"></script>
+    <script type="text/javascript" src="MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <script>
     // Config Remark
@@ -284,25 +284,12 @@ class:spacious
         return '<img src="' + url + '" style="width: ' + percentage + '" />';
     };
     config_remark = {
-        highlightStyle: 'magula',
+        highlightStyle: 'github',
         highlightSpans: true,
         highlightLines: true,
         ratio: "16:9"
     };
       var slideshow = remark.create(config_remark);
-    // Configure MathJax
-    MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] /* removed 'code' entry*/
-    }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i = 0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
     </script>
   </body>
 </html>

@@ -571,8 +571,8 @@ res = pd.pivot_table(pd.DataFrame(grid.cv_results_),
 ]
 
     </textarea>
-    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="remark-latest.min.js"></script>
+    <script type="text/javascript" src="MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <script>
     // Config Remark
@@ -587,15 +587,6 @@ res = pd.pivot_table(pd.DataFrame(grid.cv_results_),
         ratio: "16:9"
     };
       var slideshow = remark.create(config_remark);
-
-    // Configure MathJax
-    MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style'] /* removed 'code' entry*/
-    }
-    });
     </script>
   </body>
 </html>
